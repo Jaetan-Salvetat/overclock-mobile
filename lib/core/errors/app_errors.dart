@@ -1,12 +1,15 @@
 enum AppError {
   noBody,
   invalidToken,
+  timeout,
   unknown;
 
   String get label {
     switch (this) {
       case AppError.invalidToken:
         return 'Token de connexion invalide';
+      case AppError.timeout:
+        return 'Le serveur a pris trop de temps à répondre';
       default:
         return 'Une erreur est survenue';
     }
