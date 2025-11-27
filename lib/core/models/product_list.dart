@@ -6,4 +6,18 @@ class ProductList {
   final List<Product> products;
 
   ProductList({required this.id, required this.name, required this.products});
+
+  static List<ProductList> fromJsonList(List<Map<String, dynamic>> json) {
+    return json.map((x) => ProductList.fromJson(x)).toList();
+  }
+
+  factory ProductList.fromJson(Map<String, dynamic> json) {
+    return ProductList(
+      id: json['id'],
+      name: json['name'],
+      products: List<Product>.from(
+        json['products'].map((x) => Product.fromJson(x)),
+      ),
+    );
+  }
 }

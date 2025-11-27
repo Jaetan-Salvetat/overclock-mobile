@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:overclock/core/errors/app_errors.dart';
 import 'package:overclock/core/networking/ws/models/request_event.dart';
 import 'package:overclock/core/networking/ws/models/request_type.dart';
 import 'package:overclock/core/services/token_service.dart';
@@ -47,22 +46,6 @@ class AppWS {
     );
 
     _channel.sink.add(jsonEncode(body.toJson()));
-  }
-
-  Future<dynamic> sendAndReceive(
-    RequestType type,
-    Map<String, dynamic> data,
-  ) async {
-    await send(type, data);
-
-    try {
-      final result = stream
-          .firstWhere((event) => event['type'] == type.label)
-          .timeout(const Duration(seconds: 10));
-      return result;
-    } catch (e) {
-      throw AppError.timeout;
-    }
   }
 }
 

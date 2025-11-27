@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frosted_ui/frosted_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:overclock/ui/home/providers/products_list_provider.dart';
+import 'package:overclock/ui/common/providers/product_lists_provider.dart';
 import 'package:overclock/ui/common/widgets/loading_state.dart';
 import 'package:overclock/ui/home/widgets/products_list.dart';
 
@@ -10,7 +10,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productsListVM = ref.watch(productsListProvider);
+    final productsListVM = ref.watch(productListsProvider);
 
     return FrostedScaffold(
       appBar: const FrostedAppBar(title: 'Overclock'),
