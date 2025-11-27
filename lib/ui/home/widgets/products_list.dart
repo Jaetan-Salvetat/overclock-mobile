@@ -20,6 +20,7 @@ class ProductsList extends StatelessWidget {
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
           itemCount: filteredProducts.notDone.length,
+          padding: EdgeInsets.only(top: 120, bottom: 145),
           itemBuilder: (context, index) {
             return ProductListItem(
               product: filteredProducts.notDone[index],
