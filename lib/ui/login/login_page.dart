@@ -24,14 +24,19 @@ class LoginPage extends ConsumerWidget {
           children: [
             const LoginHeader(),
 
-            PasswordInput(controller: state.passwordController),
+            PasswordInput(
+              controller: state.passwordController,
+              errorText: state.passwordError,
+            ),
 
             const SizedBox(height: 24),
 
             SizedBox(
               height: 50,
               child: FrostedFilledButton(
-                onPressed: state.isLoading ? null : viewModel.login,
+                onPressed: state.isLoading
+                    ? null
+                    : () => viewModel.login(context),
                 child: state.isLoading
                     ? const FrostedCircularProgressIndicator(size: 20)
                     : const Text('Se connecter'),

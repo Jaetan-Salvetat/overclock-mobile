@@ -3,7 +3,8 @@ import 'package:frosted_ui/frosted_ui.dart';
 
 class PasswordInput extends StatefulWidget {
   final TextEditingController controller;
-  const PasswordInput({super.key, required this.controller});
+  final String? errorText;
+  const PasswordInput({super.key, required this.controller, this.errorText});
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();
@@ -18,6 +19,7 @@ class _PasswordInputState extends State<PasswordInput> {
       controller: widget.controller,
       obscureText: _obscureText,
       prefixIcon: const Icon(Icons.lock),
+      errorText: widget.errorText,
       hintText: 'Mot de passe',
       suffixIcon: FrostedIconButton(
         icon: _obscureText ? Icons.visibility : Icons.visibility_off,
