@@ -1,7 +1,7 @@
 import 'package:overclock/core/errors/app_errors.dart';
-import 'package:overclock/core/networking/app_api.dart';
-import 'package:overclock/core/networking/models/request/request_login.dart';
-import 'package:overclock/core/networking/models/responses/response_login.dart';
+import 'package:overclock/core/networking/http/app_api.dart';
+import 'package:overclock/core/networking/http/models/request/request_login.dart';
+import 'package:overclock/core/networking/http/models/responses/response_login.dart';
 import 'package:overclock/core/services/token_service.dart';
 
 class AuthApi extends AppApi {

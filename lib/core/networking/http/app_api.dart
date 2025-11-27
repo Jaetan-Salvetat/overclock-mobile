@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:overclock/core/errors/app_errors.dart';
-import 'package:overclock/core/networking/models/responses/response_error.dart';
+import 'package:overclock/core/networking/http/models/responses/response_error.dart';
 
 abstract class AppApi {
   late final Dio dio;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:overclock/core/networking/auth_api.dart';
+import 'package:overclock/core/networking/http/auth_api.dart';
 import 'package:overclock/core/errors/app_errors.dart';
 import 'package:overclock/ui/common/widgets/error_dialog.dart';
 import 'package:overclock/ui/common/providers/auth_provider.dart';
