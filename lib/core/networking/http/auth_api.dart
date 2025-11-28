@@ -13,7 +13,7 @@ class AuthApi extends AppApi {
       );
       handleResponseError(result);
       final response = ResponseLogin.fromJson(result.data);
-      TokenService.instance.setToken(response.token);
+      TokenService.instance.setToken(key, response.token);
     } catch (e) {
       throw e is AppError ? e : AppError.unknown;
     }

@@ -10,12 +10,17 @@ class TokenService {
     );
   }
 
-  Future<void> setToken(String token) async {
+  Future<void> setToken(String token, String jwt) async {
     await storage.write(key: 'token', value: token);
+    await storage.write(key: 'jwt', value: jwt);
   }
 
   Future<String?> getToken() async {
     return await storage.read(key: 'token');
+  }
+
+  Future<String?> getJwt() async {
+    return await storage.read(key: 'jwt');
   }
 
   Future<void> deleteToken() async {

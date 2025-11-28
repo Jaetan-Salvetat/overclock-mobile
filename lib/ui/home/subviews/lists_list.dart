@@ -13,7 +13,9 @@ class ListsList extends ConsumerWidget {
 
     return productsListVM.when(
       data: (data) => ProductsList(products: data),
-      error: (error, stackTrace) => const Placeholder(),
+      error: (error, stackTrace) {
+        return Center(child: Text(error.toString()));
+      },
       loading: () => const LoadingState(),
     );
   }

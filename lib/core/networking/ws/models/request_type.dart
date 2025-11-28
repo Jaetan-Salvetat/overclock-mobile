@@ -1,4 +1,5 @@
 enum RequestType {
+  newList,
   getAllLists,
   createList;
 
@@ -7,14 +8,14 @@ enum RequestType {
       case RequestType.getAllLists:
         return 'get_all_lists';
       case RequestType.createList:
+        return 'create_list';
+      case RequestType.newList:
         return 'new_list';
     }
   }
 
   static RequestType fromLabel(String label) {
     switch (label) {
-      case 'get_all_lists':
-        return RequestType.getAllLists;
       case 'new_list':
         return RequestType.createList;
       default:

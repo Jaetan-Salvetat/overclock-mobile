@@ -8,32 +8,39 @@ import 'package:overclock/core/networking/ws/models/request_type.dart';
 class ProductListsNotifier extends AsyncNotifier<List<ProductList>> {
   @override
   Future<List<ProductList>> build() async {
-    final completer = Completer<List<ProductList>>();
-    final result = _fetchList(completer);
+    final result = _fetchList();
+    listenUpdates();
 
-    completer.complete(result);
     return result;
   }
 
-  Future<List<ProductList>> _fetchList(
-    Completer<List<ProductList>> completer,
-  ) async {
+  Future<List<ProductList>> _fetchList() async {
+    ref.watch(appWSProvider).send(RequestType.getAllLists, {});
+
+    final result = await ref.waitForWsEvent(RequestType.getAllLists);
+    return ProductList.fromJsonList(result.toList());
+  }
+
+  // Actions
+  Future<bool> createList(String listName) async {
     final ws = ref.watch(appWSProvider);
 
-    await ws.send(RequestType.getAllLists, {});
+    ws.send(RequestType.createList, {"list_name": listName});
+    await ref.waitForWsEvent(RequestType.createList);
 
-    final suscription = ref.listen(wsStreamProvider, (previous, next) {
-      next.whenData((event) {
-        if (event['type'] == RequestType.getAllLists.label) {
-          final data = ProductList.fromJsonList(event['data']);
-          completer.complete(data);
-        }
-      });
+    return true;
+  }
+
+  // Listeners
+  void listenUpdates() {
+    handleNewList();
+  }
+
+  void handleNewList() {
+    ref.listenToWsEvent(RequestType.newList, (data) {
+      final lists = ProductList.fromJsonList(data.toList());
+      state = AsyncValue.data([...state.value!, ...lists]);
     });
-
-    ref.onDispose(() => suscription.close());
-
-    return completer.future;
   }
 }
 

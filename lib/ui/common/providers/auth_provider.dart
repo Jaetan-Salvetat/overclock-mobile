@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:overclock/core/networking/ws/app_ws.dart';
 import 'package:overclock/core/services/token_service.dart';
+import 'package:overclock/ui/common/widgets/expired_session_dialog.dart';
 
 class AuthNotifier extends Notifier<AuthState> {
   @override
@@ -12,6 +15,18 @@ class AuthNotifier extends Notifier<AuthState> {
     TokenService.instance.getToken().then((token) {
       print(token);
       state = state.copyWith(isLoggedIn: token != null, isLoading: false);
+    });
+  }
+
+  void listenSessionExpired(BuildContext context) {
+    ref.listen(wsStreamProvider, (previous, next) {
+      next.whenData((event) {
+        if (event is Map &&
+            event['header'] != null &&
+            event['header']['success'] == false) {
+          ExpiredSessionDialog.show(context);
+        }
+      });
     });
   }
 }

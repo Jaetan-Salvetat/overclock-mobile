@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frosted_ui/frosted_ui.dart';
+import 'package:overclock/ui/common/providers/auth_provider.dart';
 import 'package:overclock/ui/home/subviews/lists_list.dart';
 import 'package:overclock/ui/home/subviews/products_list.dart';
 import 'package:overclock/ui/common/widgets/creation_list_bottom_sheet.dart';
 import 'package:overclock/ui/common/widgets/creation_product_bottom_sheet.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   HomePageTab currentTab = HomePageTab.lists;
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(authViewModel.notifier).listenSessionExpired(context);
+  }
 
   @override
   Widget build(BuildContext context) {

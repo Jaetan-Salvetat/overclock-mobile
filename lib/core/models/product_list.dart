@@ -15,9 +15,11 @@ class ProductList {
     return ProductList(
       id: json['id'],
       name: json['name'],
-      products: List<Product>.from(
-        json['products'].map((x) => Product.fromJson(x)),
-      ),
+      products: json['products'] == null || json['products'].isEmpty
+          ? []
+          : List<Product>.from(
+              json['products'].map((x) => Product.fromJson(x)),
+            ),
     );
   }
 }
